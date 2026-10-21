@@ -1,0 +1,21 @@
+[Unit]
+Description=Camera-based adaptive display backlight
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/auto-brightness
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+RestartSec=10
+Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+MemoryMax=64M
+# Root can access /dev/video0 and /sys/class/backlight directly.
+# If you ever switch to `User=`, uncomment the next line:
+# SupplementaryGroups=video
+
+[Install]
+WantedBy=multi-user.target
